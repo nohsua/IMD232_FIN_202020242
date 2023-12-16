@@ -5,7 +5,8 @@ let springHeight = 32,
   minHeight = 100,
   over = false,
   move = false,
-  firstBounce = false; // 첫 번째 튕김 여부
+  firstBounce = false,
+  bounceCount = 0; // 첫 번째 튕김 여부
 
 // 용수철 시뮬레이션 상수들
 let M = 0.8, // Mass(질량)
@@ -24,11 +25,11 @@ let circles = [];
 
 function setup() {
   // 캔버스를 중앙에 위치시키기 위한 변수
-  let canvasX = windowWidth / 2 - 250; // 캔버스의 x 좌표
-  let canvasY = windowHeight / 2 - 300; // 캔버스의 y 좌표
+  let canvasX = windowWidth / 2 - 300; // 캔버스의 x 좌표
+  let canvasY = windowHeight / 2 - 350; // 캔버스의 y 좌표
 
   // 캔버스 생성 및 위치 설정
-  createCanvas(500, 600).position(canvasX, canvasY);
+  createCanvas(600, 700).position(canvasX, canvasY);
   rectMode(CORNERS);
   noStroke();
   left = width / 2 - 100;
@@ -79,9 +80,9 @@ function drawSpring() {
     width,
     height,
     (7 * width) / 8,
-    height - 300,
+    height - 380,
     width / 8,
-    height - 300
+    height - 380
   );
 }
 
@@ -107,9 +108,9 @@ function updateSpring() {
     vs = 0; // 튕길 때의 속도를 0으로 설정
 
     // 추가: 튕기는 원 추가
-    let size = random(10, 30);
+    let size = random(5, 15);
     let angle = random(-PI / 4, PI / 4); // 무작위 각도 (-45도에서 45도 사이)
-    let speed = random(2, 5); // 무작위 속도
+    let speed = random(0.8, 5); // 무작위 속도
     let x = random(width);
     let y = -size / 2; // 화면 위쪽 밖에 위치
 
