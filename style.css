@@ -15,7 +15,6 @@ body {
   word-break: keep-all;
   overflow-wrap: break-word;
   background-color: black;
-  height: 100vh;
 }
 @media (width < 60rem) {
   body {
