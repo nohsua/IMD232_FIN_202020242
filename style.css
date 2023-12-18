@@ -14,7 +14,8 @@ body {
   color: oklch(90% 0 0/1);
   word-break: keep-all;
   overflow-wrap: break-word;
-  background: url('/asset/9aeeb87dc71a577af0fc7246360d6e3c.jpg');
+  background: url('/asset/9aeeb87dc71a577af0fc7246360d6e3c.jpg') center
+    center/cover no-repeat;
   height: 100vh;
 }
 @media (width < 60rem) {
