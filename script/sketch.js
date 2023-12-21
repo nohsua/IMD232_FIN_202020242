@@ -8,6 +8,7 @@ let springHeight = 32,
   firstBounce = false,
   bounceCount = 0;
 
+// 용수철 시뮬레이션 상수들
 let M = 0.8,
   K = 0.2,
   D = 0.92,
@@ -21,15 +22,18 @@ let ps = R,
 let circles = [];
 
 function setup() {
-  let canvasX = windowWidth / 2 - 300;
-  let canvasY = windowHeight / 2 - 350;
+  // 캔버스를 중앙에 위치시키기 위한 변수
+  let canvasX = windowWidth / 2 - 300; // 캔버스의 x 좌표
+  let canvasY = windowHeight / 2 - 350; // 캔버스의 y 좌표
 
+  // 캔버스 생성 및 위치 설정
   createCanvas(600, 700).position(canvasX, canvasY);
   rectMode(CORNERS);
   noStroke();
   left = width / 2 - 100;
   right = width / 2 + 100;
 
+  // 눈을 화면 위쪽 밖에 생성
   for (let i = 0; i < 5; i++) {
     let size = random(10, 30);
     let angle = random(-PI / 4, PI / 4);
@@ -52,10 +56,12 @@ function draw() {
 }
 
 function drawSpring() {
+  // 바탕 그리기
   fill(0.2);
   let baseWidth = 0.5 * ps + -8;
   rect(width / 2 - baseWidth, ps + springHeight, width / 2 + baseWidth, height);
 
+  // 상단 막대기의 색상 설정하고 그리기
   if (over || move) {
     fill('#FFD451');
   } else {
@@ -64,6 +70,7 @@ function drawSpring() {
 
   rect(left, ps, right, ps + springHeight);
 
+  // 지붕 그리기
   fill('brown');
   quad(
     0,
@@ -77,6 +84,7 @@ function drawSpring() {
   );
 }
 
+// 눈 그리기
 function drawCircles() {
   fill('#C5EEFF');
   for (let circle of circles) {
@@ -85,6 +93,7 @@ function drawCircles() {
 }
 
 function updateSpring() {
+  // 용수철(spring) 위치 업데이트
   if (!move) {
     f = -K * (ps - R);
     as = f / M;
@@ -92,9 +101,11 @@ function updateSpring() {
     ps = ps + vs;
   }
 
+  // 튕기는 눈 생성 조건 추가
   if (abs(vs) < 0.1 && !move && firstBounce) {
-    vs = 0;
+    vs = 0; // 튕길 때의 속도를 0으로 설정
 
+    // 눈 추가
     let size = random(5, 15);
     let angle = random(-PI / 4, PI / 4);
     let speed = random(0.8, 3.8);
@@ -104,10 +115,12 @@ function updateSpring() {
     circles.push({ x, y, size, speed });
   }
 
+  // 눈의 위치 업데이트 및 화면 바깥으로 나갔을 때 제거
   for (let i = circles.length - 1; i >= 0; i--) {
     let circle = circles[i];
     circle.y += circle.speed;
 
+    // 화면 바깥으로 나가면 배열에서 제거
     if (
       circle.y - circle.size / 2 > height ||
       circle.x < 0 ||
